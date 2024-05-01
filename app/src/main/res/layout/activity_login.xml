@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -11,7 +12,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="150dp"
         android:layout_marginBottom="8dp"
-        android:hint="Username" />
+        android:hint="Username"
+        android:textAlignment="center"
+        android:typeface="normal" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -20,7 +23,8 @@
         android:layout_below="@id/usernameEditText"
         android:layout_marginTop="28dp"
         android:layout_marginBottom="16dp"
-        android:hint="Password" />
+        android:hint="Password"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/loginButton"
@@ -28,7 +32,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordEditText"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="147dp"
+        android:layout_marginTop="77dp"
+        android:layout_marginEnd="142dp"
+        android:background="#2196F3"
         android:text="Login" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="147dp"
+        android:layout_marginEnd="153dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
 </RelativeLayout>

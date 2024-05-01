@@ -1,5 +1,7 @@
 package com.example.projectapp
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -8,15 +10,19 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.util.Calendar
 //import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var remindersList: ArrayList<String>
     private lateinit var arrayAdapter: ArrayAdapter<String>
     private lateinit var addButton: Button
     private lateinit var deleteButton: Button
     private lateinit var editText: EditText
     private lateinit var listView: ListView
+    private lateinit var dateEditText: EditText
+    private lateinit var timeEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +36,39 @@ class MainActivity : AppCompatActivity() {
         remindersList = ArrayList()
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, remindersList)
         listView.adapter = arrayAdapter
+        dateEditText = findViewById(R.id.dateEditText)
+        timeEditText = findViewById(R.id.timeEditText)
+
+        val addButton = findViewById<Button>(R.id.addButton)
 
         addButton.setOnClickListener {
+            val reminder = editText.text.toString().trim()
+            val date = dateEditText.text.toString().trim()
+            val time = timeEditText.text.toString().trim()
+
+            if (reminder.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
+                // Concatenate reminder text, date, and time
+                val reminderWithDateTime = "$reminder - Date: $date, Time: $time"
+                remindersList.add(reminderWithDateTime)
+                arrayAdapter.notifyDataSetChanged()
+                editText.text.clear()
+                dateEditText.text.clear()
+                timeEditText.text.clear()
+            } else {
+                Toast.makeText(this, "Please enter a reminder, date, and time", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Set click listeners for date and time EditText fields
+        dateEditText.setOnClickListener {
+            showDatePicker()
+        }
+
+        timeEditText.setOnClickListener {
+            showTimePicker()
+        }
+
+        /*addButton.setOnClickListener {
             val reminder = editText.text.toString().trim()
             if (reminder.isNotEmpty()) {
                 remindersList.add(reminder)
@@ -40,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Please enter a reminder", Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
 
         deleteButton.setOnClickListener {
             val position = listView.checkedItemPosition
@@ -68,5 +105,41 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+    fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                // Set selected date to dateEditText
+                dateEditText.setText("$year-${month + 1}-$dayOfMonth")
+            },
+            year,
+            month,
+            day
+        )
+        datePickerDialog.show()
+    }
+
+    fun showTimePicker() {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(
+            this,
+            { _, hourOfDay, minute ->
+                // Set selected time to timeEditText
+                timeEditText.setText("$hourOfDay:$minute")
+            },
+            hour,
+            minute,
+            true
+        )
+        timePickerDialog.show()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.projectapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -16,7 +17,6 @@ class SettingsActivity : AppCompatActivity() {
         val notificationsTextView = findViewById<TextView>(R.id.notificationsTextView)
         val logoutButton = findViewById<Button>(R.id.logoutButton)
 
-        // Implement logic for settings options here
         // For simplicity, let's just display a toast message for demonstration
 
         accountTextView.setOnClickListener {
@@ -32,11 +32,20 @@ class SettingsActivity : AppCompatActivity() {
         logoutButton.setOnClickListener {
             // Handle logout
             showToast("Logout clicked")
-            // Implement logout logic (e.g., clear session data, navigate to login screen)
+            navigateToLoginScreen()
         }
+    }
+
+    private fun navigateToLoginScreen() {
+        val intent = Intent(this, LoginActivity::class.java)
+        // Clear the back stack so that the user cannot navigate back to MainActivity
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish() // Finish the current activity
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
 }
