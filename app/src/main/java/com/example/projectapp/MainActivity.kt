@@ -11,6 +11,9 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.util.Calendar
+//import android.app.AlarmManager
+//import android.app.PendingIntent
+//import android.content.Context
 //import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +57,8 @@ class MainActivity : AppCompatActivity() {
                 editText.text.clear()
                 dateEditText.text.clear()
                 timeEditText.text.clear()
+
+                /*scheduleReminder(reminderWithDateTime)*/
             } else {
                 Toast.makeText(this, "Please enter a reminder, date, and time", Toast.LENGTH_SHORT).show()
             }
@@ -142,4 +147,21 @@ class MainActivity : AppCompatActivity() {
         )
         timePickerDialog.show()
     }
+
+    /*private fun scheduleReminder(reminderText: String) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, ReminderBroadcastReceiver::class.java)
+        intent.putExtra("reminderText", reminderText)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val calendar = Calendar.getInstance()
+        // Set the reminder time (10 seconds after the current time)
+        calendar.add(Calendar.SECOND, 10)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,pendingIntent)
+    }*/
 }
