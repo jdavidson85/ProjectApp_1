@@ -73,16 +73,7 @@ class MainActivity : AppCompatActivity() {
             showTimePicker()
         }
 
-        /*addButton.setOnClickListener {
-            val reminder = editText.text.toString().trim()
-            if (reminder.isNotEmpty()) {
-                remindersList.add(reminder)
-                arrayAdapter.notifyDataSetChanged()
-                editText.text.clear()
-            } else {
-                Toast.makeText(this, "Please enter a reminder", Toast.LENGTH_SHORT).show()
-            }
-        }*/
+    
 
         deleteButton.setOnClickListener {
             val position = listView.checkedItemPosition
