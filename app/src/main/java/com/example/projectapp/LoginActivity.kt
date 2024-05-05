@@ -17,7 +17,6 @@ class LoginActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.loginButton)
 
         loginButton.setOnClickListener {
-            // Perform login logic here
             // For simplicity, let's just navigate to MainActivity when login button is clicked
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
